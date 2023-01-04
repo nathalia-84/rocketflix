@@ -83,6 +83,10 @@ body {
     justify-content: space-evenly;
 }
 
+.btn:hover {
+    filter: brightness(0.85);
+}
+
 .icon {
     background: url(./assets/shuffle.svg) no-repeat;
     background-size: contain;
