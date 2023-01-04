@@ -9,6 +9,8 @@ function generateRandomIntegerInRange(min, max) {
 }
 
 async function getContent() {
+  showLoading()
+
   let number = generateRandomIntegerInRange(1, 1069293)
 
   let url = "".concat(BASE_URL, number, '?', API_KEY, '&', language) 
@@ -40,7 +42,19 @@ function reduceText(text) {
   return text.substring(0, text.length - (i-1))
 }
 
+function showLoading() {
+  document.querySelector('.movies img').src = ""
+  document.querySelector('.movies img').alt = ""
+  document.querySelector('.movies img').style.height = ""
+  document.querySelector('.movies .text h2').textContent = "Carregando..."
+  document.querySelector('.movies').style.paddingLeft = "30%"
+  document.querySelector('.movies').style.paddingRight = "30%"
+  document.querySelector('.movies .text p').textContent = ""
+}
+
 function show(movie) {
+  document.querySelector('.movies').style.paddingLeft = "0"
+  document.querySelector('.movies').style.paddingRight = "0"
   document.querySelector('.movies img').src = "".concat(IMG_URL, movie.poster_path)
   document.querySelector('.movies img').alt = "".concat('Poster do filme ', movie.title)
   document.querySelector('.movies img').style.height = "15em"

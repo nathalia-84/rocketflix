@@ -61,7 +61,6 @@ body {
 .switch {
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
     justify-content: center;
     text-align: center;
 }
@@ -106,7 +105,52 @@ p {
 }
 
 .switch p {
-    margin-top: 2%;
+    margin-top: 1%;
     color: var(--subtitle);
     padding: 0 30%;
+}
+
+@media screen and (max-width: 480px) { 
+    body {
+        background: #000;
+        
+    }
+
+    .container {
+        margin-left: 5%;
+        margin-right: 5%;
+        margin-top: 5%;
+        height: 30%;
+    }
+
+    .intro {
+        flex-wrap: unset;
+        justify-content: space-between;
+    }
+
+    .intro img {
+        padding: 0 0.3em;
+        height: 1.5em;
+    }
+    .movies {
+        flex-wrap: wrap;
+        margin-top: 5%;
+        margin-bottom: 5%;
+        text-align: center;
+    }
+
+    .switch p {
+        padding: 0 10%;
+    }
+    h1{
+        font-size: 1em;
+    }
+
+    h2 {
+        font-size: .7em;
+    }
+
+    
+
+   
 }
