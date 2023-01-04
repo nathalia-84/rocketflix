@@ -24,6 +24,6 @@ As seguintes ferramentas foram usadas na construção do projeto:
 ### Autor
 ---
 
-Feito com por Nathalia Azevedo 👋🏽 Entre em contato!
+Feito por Nathalia Azevedo 👋🏽 Entre em contato!
 
 [![Linkedin Badge](https://img.shields.io/badge/-Nathalia-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/tgmarinho/)](https://www.linkedin.com/in/azevedo-nathalia/)
