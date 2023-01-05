@@ -11,6 +11,12 @@
   <img alt="Rocketflix" src="./assets/captura7.PNG" />
 </h1>
 
+### Features
+
+- [x] Consumir API
+- [x] Mostrar filme aleatório
+- [ ] Criar campo para interação do usuário (década e gênero)
+- [ ] Exibir mais informações a respeito do filme
 
 
 ### 🛠 Tecnologias
