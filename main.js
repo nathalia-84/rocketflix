@@ -2,18 +2,55 @@ import {
   API_KEY, BASE_URL,
   IMG_URL,
   language,
+  QUERY_GENRE,
+  QUERY_PAGE,
 } from './api.js'
 
 function generateRandomIntegerInRange(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-async function getContent() {
+
+function getDecade() {
+  let arr = []
+
+  const date = new Date(2020, 0)
+
+  const dateRanges = (date, rule, sum = 0) => Math.floor(date.getFullYear() / rule) * rule + sum
+
+  const lowerDecade = "".concat('&primary_release_date.gte=', dateRanges(date, 10), '-01-01')
+  const upperDecade = "".concat('&primary_release_date.lte=', dateRanges(date, 10, 9), '-12-31')
+
+  arr[0] = lowerDecade
+  arr[1] = upperDecade
+  
+  return arr
+}
+
+const getMovie = async() => {
+  const randomNumber = generateRandomIntegerInRange(1, 19)
+  const randomPage = generateRandomIntegerInRange(1, 10)
+
+  const arrDecade = getDecade()
+
+  const url = "".concat(BASE_URL, '?', API_KEY, language, QUERY_GENRE, 18, QUERY_PAGE, randomPage, arrDecade[0], arrDecade[1])
+  console.log(url)
+
+  const response = await fetch(url)
+  const jsonMovieData = await response.json()
+  const movies = await jsonMovieData.results
+
+  const chosenMovie = movies[randomNumber]
+  show(chosenMovie)
+}
+
+
+/* async function getContent() {
   showLoading()
 
-  let number = generateRandomIntegerInRange(1, 1069293)
+  let number = generateRandomIntegerInRange(1, 20)
 
-  let url = "".concat(BASE_URL, number, '?', API_KEY, '&', language) 
+  let url = "".concat(BASE_URL, '?', API_KEY, language, QUERY_GENRE, 18, QUERY_YEAR, 2000) 
 
   try {
     let response = await fetch(url)
@@ -32,7 +69,7 @@ async function getContent() {
     console.log(error)
   }
   
-}
+} */
 
 function reduceText(text) {
   let i = 1
@@ -66,5 +103,5 @@ function show(movie) {
 
 const btn = document.querySelector('.btn')
 btn.addEventListener('click', function() {
-  getContent()
+  getMovie()
 }, {once : false}) 
