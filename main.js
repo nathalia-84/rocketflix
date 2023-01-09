@@ -1,49 +1,72 @@
 import {
-  API_KEY, BASE_URL,
+  API_KEY,
+  BASE_URL,
   IMG_URL,
   language,
   QUERY_GENRE,
   QUERY_PAGE,
-} from './api.js'
+} from "./api.js";
 
 function generateRandomIntegerInRange(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-
 function getDecade() {
-  let arr = []
+  let arr = [];
 
-  const date = new Date(2020, 0)
+  const date = new Date(2020, 0);
 
-  const dateRanges = (date, rule, sum = 0) => Math.floor(date.getFullYear() / rule) * rule + sum
+  const dateRanges = (date, rule, sum = 0) =>
+    Math.floor(date.getFullYear() / rule) * rule + sum;
 
-  const lowerDecade = "".concat('&primary_release_date.gte=', dateRanges(date, 10), '-01-01')
-  const upperDecade = "".concat('&primary_release_date.lte=', dateRanges(date, 10, 9), '-12-31')
+  const lowerDecade = "".concat(
+    "&primary_release_date.gte=",
+    dateRanges(date, 10),
+    "-01-01"
+  );
+  const upperDecade = "".concat(
+    "&primary_release_date.lte=",
+    dateRanges(date, 10, 9),
+    "-12-31"
+  );
 
-  arr[0] = lowerDecade
-  arr[1] = upperDecade
-  
-  return arr
+  arr[0] = lowerDecade;
+  arr[1] = upperDecade;
+
+  return arr;
 }
 
-const getMovie = async() => {
-  const randomNumber = generateRandomIntegerInRange(1, 19)
-  const randomPage = generateRandomIntegerInRange(1, 10)
+const getMovie = async () => {
+  try {
+    const randomNumber = generateRandomIntegerInRange(1, 19);
+    const randomPage = generateRandomIntegerInRange(1, 3);
 
-  const arrDecade = getDecade()
+    const arrDecade = getDecade();
 
-  const url = "".concat(BASE_URL, '?', API_KEY, language, QUERY_GENRE, 18, QUERY_PAGE, randomPage, arrDecade[0], arrDecade[1])
-  console.log(url)
+    const url = "".concat(
+      BASE_URL,
+      "?",
+      API_KEY,
+      language,
+      QUERY_GENRE,
+      18,
+      QUERY_PAGE,
+      randomPage,
+      arrDecade[0],
+      arrDecade[1]
+    );
+    console.log(url);
 
-  const response = await fetch(url)
-  const jsonMovieData = await response.json()
-  const movies = await jsonMovieData.results
+    const response = await fetch(url);
+    const jsonMovieData = await response.json();
+    const movies = await jsonMovieData.results;
 
-  const chosenMovie = movies[randomNumber]
-  show(chosenMovie)
-}
-
+    const chosenMovie = movies[randomNumber];
+    show(chosenMovie);
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 /* async function getContent() {
   showLoading()
@@ -72,36 +95,46 @@ const getMovie = async() => {
 } */
 
 function reduceText(text) {
-  let i = 1
-  while (text[text.length - i] != '.') {
-    i++
+  let i = 1;
+  while (text[text.length - i] != ".") {
+    i++;
   }
-  return text.substring(0, text.length - (i-1))
+  return text.substring(0, text.length - (i - 1));
 }
 
 function showLoading() {
-  document.querySelector('.movies img').src = ""
-  document.querySelector('.movies img').alt = ""
-  document.querySelector('.movies img').style.height = ""
-  document.querySelector('.movies .text h2').textContent = "Carregando..."
-  document.querySelector('.movies').style.paddingLeft = "30%"
-  document.querySelector('.movies').style.paddingRight = "30%"
-  document.querySelector('.movies .text p').textContent = ""
+  document.querySelector(".movies img").src = "";
+  document.querySelector(".movies img").alt = "";
+  document.querySelector(".movies img").style.height = "";
+  document.querySelector(".movies .text h2").textContent = "Carregando...";
+  document.querySelector(".movies").style.paddingLeft = "30%";
+  document.querySelector(".movies").style.paddingRight = "30%";
+  document.querySelector(".movies .text p").textContent = "";
 }
 
 function show(movie) {
-  document.querySelector('.movies').style.paddingLeft = "0"
-  document.querySelector('.movies').style.paddingRight = "0"
-  document.querySelector('.movies img').src = "".concat(IMG_URL, movie.poster_path)
-  document.querySelector('.movies img').alt = "".concat('Poster do filme ', movie.title)
-  document.querySelector('.movies img').style.height = "15em"
-  document.querySelector('.movies .text h2').textContent = movie.title
-  document.querySelector('.movies .text p').textContent = reduceText(movie.overview.substring(0, 500))
+  document.querySelector(".movies").style.paddingLeft = "0";
+  document.querySelector(".movies").style.paddingRight = "0";
+  document.querySelector(".movies img").src = "".concat(
+    IMG_URL,
+    movie.poster_path
+  );
+  document.querySelector(".movies img").alt = "".concat(
+    "Poster do filme ",
+    movie.title
+  );
+  document.querySelector(".movies img").style.height = "15em";
+  document.querySelector(".movies .text h2").textContent = movie.title;
+  document.querySelector(".movies .text p").textContent = reduceText(
+    movie.overview.substring(0, 500)
+  );
 }
 
-
-
-const btn = document.querySelector('.btn')
-btn.addEventListener('click', function() {
-  getMovie()
-}, {once : false}) 
+const btn = document.querySelector(".btn");
+btn.addEventListener(
+  "click",
+  function () {
+    getMovie();
+  },
+  { once: false }
+);
