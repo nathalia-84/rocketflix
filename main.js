@@ -68,32 +68,6 @@ const getMovie = async () => {
   }
 };
 
-/* async function getContent() {
-  showLoading()
-
-  let number = generateRandomIntegerInRange(1, 20)
-
-  let url = "".concat(BASE_URL, '?', API_KEY, language, QUERY_GENRE, 18, QUERY_YEAR, 2000) 
-
-  try {
-    let response = await fetch(url)
-    let data = await response.json()
-
-    while(response.status != 200 || data.poster_path == null || data.overview == "" || data.vote_average < 7) {
-      number = generateRandomIntegerInRange(1, 1069293)
-      url = "".concat(BASE_URL, number, '?', API_KEY, '&', language) 
-
-      response = await fetch(url)
-      data = await response.json()
-    }
-    console.log(data)
-    show(data)
-  } catch (error) {
-    console.log(error)
-  }
-  
-} */
-
 function reduceText(text) {
   let i = 1;
   while (text[text.length - i] != ".") {
